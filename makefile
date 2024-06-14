@@ -1,4 +1,4 @@
-CPP = g++ -g -Wall -pedantic -Wextra main.cpp
+CPP = g++ -g -Wall -Wno-missing-field-initializers -pedantic -Wextra main.cpp
 DEPS_RAYLIB = -L C:/raylib/lib -lraylib -lgdi32 -lwinmm
 
 all: compile finish open
