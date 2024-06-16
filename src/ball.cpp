@@ -1,6 +1,6 @@
 #include "ball.hpp"
 
-#define GRAVITY 0
+#define GRAVITY 100
 #define BALL_RADIUS 50
 
 
@@ -10,20 +10,20 @@ void Ball::draw()
 }
 
 
-void Ball::updateVel()
+void Ball::updateVel(float deltaTime)
 {
-    m_pos = Vector2Add(m_pos, m_vel);
+    m_vel.y += GRAVITY * deltaTime * deltaTime;
 }
 
 
 void Ball::updatePos()
 {
-    m_vel.y += GRAVITY;
+    m_pos = Vector2Add(m_pos, m_vel);
 }
 
 
-void Ball::update()
+void Ball::update(float deltaTime)
 {
-    updateVel();
+    updateVel(deltaTime);
     updatePos();
 }

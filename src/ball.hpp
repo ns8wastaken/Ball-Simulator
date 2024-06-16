@@ -6,15 +6,16 @@
 class Ball
 {
 private:
-    void updateVel();
+    void updateVel(float deltaTime);
     void updatePos();
 
 public:
-    Vector2 m_pos{ 0, 0 };
-    Vector2 m_vel{ 0, 0 };
+    Vector2 m_pos{ 0.0f, 0.0f };
+    Vector2 m_vel{ 0.0f, 0.0f };
 
-    void update();
+    void update(float deltaTime);
     void draw();
 
+    Ball() {}
     Ball(Vector2 pos) : m_pos(pos) {}
 };

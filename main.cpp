@@ -1,34 +1,32 @@
 #include <raylib.h>
 #include <raymath.h>
 
-#include <vector>
 #include "src/ball.cpp"
-#include <iostream>
+#include "src/engine.cpp"
 
 
 int main()
 {
+    constexpr size_t screenWidth = 800;
+    constexpr size_t screenHeight = 800;
     InitWindow(800, 800, "Ball Simulator");
 
-    std::vector<Ball> balls;
+    Engine engine;
 
     while (!WindowShouldClose()) {
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            balls.push_back(Ball(GetMousePosition()));
+        float deltaTime = GetFrameTime();
 
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            engine.addBall();
+        }
 
-        for (Ball& ball : balls)
-            ball.update();
-
+        engine.update(deltaTime);
 
         BeginDrawing();
         ClearBackground(DARKGRAY);
-
         DrawFPS(5, 5);
 
-        for (Ball& ball : balls)
-            ball.draw();
-
+        engine.draw();
 
         EndDrawing();
     }
