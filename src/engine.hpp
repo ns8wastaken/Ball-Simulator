@@ -10,6 +10,7 @@ private:
 
 public:
     void addBall();
+
     void update(float deltaTime);
     void draw();
 };

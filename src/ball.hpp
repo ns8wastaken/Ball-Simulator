@@ -7,7 +7,8 @@ class Ball
 {
 private:
     void updateVel(float deltaTime);
-    void updatePos();
+    void updatePos(float deltaTime);
+    void updateCollisions();
 
 public:
     Vector2 m_pos{ 0.0f, 0.0f };
