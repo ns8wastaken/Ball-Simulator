@@ -9,18 +9,28 @@ int main()
 {
     constexpr size_t screenWidth = 800;
     constexpr size_t screenHeight = 800;
-    InitWindow(800, 800, "Ball Simulator");
+    InitWindow(screenWidth, screenHeight, "Ball Simulator");
 
     Engine engine;
+
+    float time = 0;
 
     while (!WindowShouldClose()) {
         float deltaTime = GetFrameTime();
 
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-            engine.addBall();
-        }
+        if (IsWindowFocused()) {
+            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                engine.addBall();
 
-        engine.update(deltaTime);
+            time += GetFrameTime();
+
+            if (time > 0.5) {
+                time = 0.0f;
+                // engine.addBall();
+            }
+
+            engine.update(deltaTime);
+        }
 
         BeginDrawing();
         ClearBackground(DARKGRAY);

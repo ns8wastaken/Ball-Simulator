@@ -3,20 +3,14 @@
 #include "raymath.h"
 
 
-class Ball
+struct Ball
 {
-private:
-    void updateVel(float deltaTime);
-    void updatePos(float deltaTime);
-    void updateCollisions();
-
-public:
     Vector2 m_pos{ 0.0f, 0.0f };
     Vector2 m_vel{ 0.0f, 0.0f };
+    unsigned char m_radius = 20;
 
-    void update(float deltaTime);
     void draw();
 
-    Ball() {}
     Ball(Vector2 pos) : m_pos(pos) {}
+    Ball(Vector2 pos, Vector2 vel) : m_pos(pos), m_vel(vel) {}
 };
