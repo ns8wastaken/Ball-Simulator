@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include <raymath.h>
+#include <rayoverloads.h>
 
 #include "src/ball.cpp"
 #include "src/engine.cpp"

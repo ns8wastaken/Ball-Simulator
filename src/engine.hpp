@@ -1,4 +1,7 @@
 #include <vector>
+#include <raymath.h>
+#include <rayoverloads.h>
+
 #include "ball.hpp"
 
 

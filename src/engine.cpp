@@ -3,6 +3,9 @@
 
 #define GRAVITY 500
 
+// Don't go below 1.0f
+// 1.0f = No Bounce
+// 2.0f = Equal Bounce
 #define BALL_BOUCE 1.6f
 
 
@@ -60,9 +63,9 @@ void Engine::updateBallCollisions(Ball& ball)
 
         if (vecLength < ball.m_radius + otherBall.m_radius) {
             const float delta = (ball.m_radius + otherBall.m_radius) - vecLength;
-            const Vector2 n = Vector2Scale(Vector2Scale(Vector2Scale(vec, 1 / vecLength), 0.5f), delta);
-            ball.m_pos = Vector2Subtract(ball.m_pos, n);
-            otherBall.m_pos = Vector2Add(otherBall.m_pos, n);
+            const Vector2 n = (vec / vecLength) * delta;
+            ball.m_pos -= n;
+            otherBall.m_pos += n;
         }
     }
 }
