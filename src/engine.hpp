@@ -8,10 +8,15 @@
 class Engine
 {
 private:
+    struct
+    {
+        const Vector2 gravity{ 0.0f, 0.5f };
+    } Settings;
+
+
     std::vector<Ball> balls{};
     int currentOpenIndex = 0;
 
-    void updateVel(Ball& ball, float deltaTime);
     void updatePos(Ball& ball, float deltaTime);
     void updateWallCollisions(Ball& ball);
     void updateBallCollisions(Ball& ball);

@@ -5,12 +5,12 @@
 
 struct Ball
 {
-    Vector2 m_pos{ 0.0f, 0.0f };
-    Vector2 m_vel{ 0.0f, 0.0f };
-    unsigned char m_radius = 20;
+    Vector2 m_currentPos;
+    Vector2 m_previousPos;
+    unsigned char m_radius = 50;
 
     void draw();
 
-    Ball(Vector2 pos) : m_pos(pos) {}
-    Ball(Vector2 pos, Vector2 vel) : m_pos(pos), m_vel(vel) {}
+    Ball(Vector2 pos) : m_currentPos(pos), m_previousPos(pos) {}
+    Ball(Vector2 pos, Vector2 previousPos) : m_currentPos(pos), m_previousPos(previousPos) {}
 };

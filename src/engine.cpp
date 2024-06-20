@@ -1,54 +1,36 @@
 #include "engine.hpp"
 
 
-#define GRAVITY 500
-
-// Don't go below 1.0f
-// 1.0f = No Bounce
-// 2.0f = Equal Bounce
-#define BALL_BOUCE 1.6f
-
-
 void Engine::addBall()
 {
-    balls.push_back(Ball(GetMousePosition(), { 1000, 0 }));
-}
-
-
-void Engine::updateVel(Ball& ball, float deltaTime)
-{
-    ball.m_vel.y += GRAVITY * deltaTime;
+    balls.push_back(Ball(GetMousePosition()));
 }
 
 
 void Engine::updatePos(Ball& ball, float deltaTime)
 {
-    ball.m_pos = Vector2Add(ball.m_pos, Vector2Scale(ball.m_vel, deltaTime));
+    const Vector2 velocity = ball.m_currentPos - ball.m_previousPos;
+    ball.m_previousPos = ball.m_currentPos;
+    // Apparently its supposed to be like this ???
+    // ball.m_currentPos += velocity + Settings.gravity * deltaTime * deltaTime;
+    ball.m_currentPos += velocity + Settings.gravity;
 }
 
 
 void Engine::updateWallCollisions(Ball& ball)
 {
-    if (ball.m_pos.x + ball.m_radius >= GetScreenWidth()) {
-        ball.m_pos.x = GetScreenWidth() - ball.m_radius;
-        // ball.m_vel.x *= -0.8f;
-        ball.m_vel = Vector2Add(ball.m_vel, { -ball.m_vel.x * BALL_BOUCE, 0 });
+    if (ball.m_currentPos.x + ball.m_radius >= GetScreenWidth()) {
+        ball.m_currentPos.x = GetScreenWidth() - ball.m_radius;
     }
-    else if (ball.m_pos.x - ball.m_radius <= 0) {
-        ball.m_pos.x = ball.m_radius;
-        // ball.m_vel.x *= -0.8f;
-        ball.m_vel = Vector2Add(ball.m_vel, { -ball.m_vel.x * BALL_BOUCE, 0 });
+    else if (ball.m_currentPos.x - ball.m_radius <= 0) {
+        ball.m_currentPos.x = ball.m_radius;
     }
 
-    if (ball.m_pos.y + ball.m_radius >= GetScreenHeight()) {
-        ball.m_pos.y = GetScreenHeight() - ball.m_radius;
-        // ball.m_vel.y *= -0.8f;
-        ball.m_vel = Vector2Add(ball.m_vel, { 0, -ball.m_vel.y * BALL_BOUCE });
+    if (ball.m_currentPos.y + ball.m_radius >= GetScreenHeight()) {
+        ball.m_currentPos.y = GetScreenHeight() - ball.m_radius;
     }
-    else if (ball.m_pos.y - ball.m_radius <= 0) {
-        ball.m_pos.y = ball.m_radius;
-        // ball.m_vel.y *= -0.8f;
-        ball.m_vel = Vector2Add(ball.m_vel, { 0, -ball.m_vel.y * BALL_BOUCE });
+    else if (ball.m_currentPos.y - ball.m_radius <= 0) {
+        ball.m_currentPos.y = ball.m_radius;
     }
 }
 
@@ -56,16 +38,17 @@ void Engine::updateWallCollisions(Ball& ball)
 void Engine::updateBallCollisions(Ball& ball)
 {
     for (Ball& otherBall : balls) {
-        if (&ball == &otherBall) continue;
+        if (&ball == &otherBall)
+            continue;
 
-        const Vector2 vec = Vector2Subtract(otherBall.m_pos, ball.m_pos);
+        const Vector2 vec = otherBall.m_currentPos - ball.m_currentPos;
         const float vecLength = Vector2Length(vec);
 
         if (vecLength < ball.m_radius + otherBall.m_radius) {
             const float delta = (ball.m_radius + otherBall.m_radius) - vecLength;
-            const Vector2 n = (vec / vecLength) * delta;
-            ball.m_pos -= n;
-            otherBall.m_pos += n;
+            const Vector2 offset = (vec / vecLength) * delta * 0.5f;
+            ball.m_currentPos -= offset;
+            otherBall.m_currentPos += offset;
         }
     }
 }
@@ -74,10 +57,9 @@ void Engine::updateBallCollisions(Ball& ball)
 void Engine::update(float deltaTime)
 {
     for (Ball& ball : balls) {
-        updateVel(ball, deltaTime);
         updatePos(ball, deltaTime);
-        updateWallCollisions(ball);
         updateBallCollisions(ball);
+        updateWallCollisions(ball);
     }
 }
 

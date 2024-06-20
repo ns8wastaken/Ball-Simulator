@@ -11,6 +11,7 @@ int main()
     constexpr size_t screenWidth = 800;
     constexpr size_t screenHeight = 800;
     InitWindow(screenWidth, screenHeight, "Ball Simulator");
+    SetTargetFPS(144);
 
     Engine engine;
 
@@ -35,10 +36,8 @@ int main()
 
         BeginDrawing();
         ClearBackground(DARKGRAY);
-        DrawFPS(5, 5);
-
         engine.draw();
-
+        DrawFPS(5, 5);
         EndDrawing();
     }
 

@@ -3,5 +3,5 @@
 
 void Ball::draw()
 {
-    DrawCircleV(m_pos, m_radius, RAYWHITE);
+    DrawCircleV(m_currentPos, m_radius, RAYWHITE);
 }
