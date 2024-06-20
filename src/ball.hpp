@@ -1,4 +1,5 @@
 #pragma once
+#include <stdlib.h>
 #include "raylib.h"
 #include "raymath.h"
 
@@ -7,7 +8,7 @@ struct Ball
 {
     Vector2 m_currentPos;
     Vector2 m_previousPos;
-    unsigned char m_radius = 50;
+    unsigned char m_radius = std::rand() % 50 + 10; // Random value from 10 - 50
 
     void draw();
 

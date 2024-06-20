@@ -11,7 +11,7 @@ int main()
     constexpr size_t screenWidth = 800;
     constexpr size_t screenHeight = 800;
     InitWindow(screenWidth, screenHeight, "Ball Simulator");
-    SetTargetFPS(144);
+    // SetTargetFPS(144);
 
     Engine engine;
 

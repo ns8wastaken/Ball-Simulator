@@ -10,7 +10,7 @@ class Engine
 private:
     struct
     {
-        const Vector2 gravity{ 0.0f, 0.5f };
+        const Vector2 gravity{ 0.0f, 1000.0f };
     } Settings;
 
 

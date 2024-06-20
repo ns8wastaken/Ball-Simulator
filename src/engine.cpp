@@ -11,9 +11,7 @@ void Engine::updatePos(Ball& ball, float deltaTime)
 {
     const Vector2 velocity = ball.m_currentPos - ball.m_previousPos;
     ball.m_previousPos = ball.m_currentPos;
-    // Apparently its supposed to be like this ???
-    // ball.m_currentPos += velocity + Settings.gravity * deltaTime * deltaTime;
-    ball.m_currentPos += velocity + Settings.gravity;
+    ball.m_currentPos += velocity + (Settings.gravity - velocity) * (deltaTime * deltaTime);
 }
 
 
