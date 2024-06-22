@@ -23,6 +23,7 @@ private:
 
 public:
     void addBall();
+    void addBall(Vector2 pos, Vector2 velocity);
 
     void update(float deltaTime);
     void draw();

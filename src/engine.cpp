@@ -7,6 +7,12 @@ void Engine::addBall()
 }
 
 
+void Engine::addBall(Vector2 pos, Vector2 velocity)
+{
+    balls.push_back(Ball(pos + velocity, pos));
+}
+
+
 void Engine::updatePos(Ball& ball, float deltaTime)
 {
     const Vector2 velocity = ball.m_currentPos - ball.m_previousPos;
@@ -42,11 +48,21 @@ void Engine::updateBallCollisions(Ball& ball)
         const Vector2 vec = otherBall.m_currentPos - ball.m_currentPos;
         const float vecLength = Vector2Length(vec);
 
-        if (vecLength < ball.m_radius + otherBall.m_radius) {
-            const float delta = (ball.m_radius + otherBall.m_radius) - vecLength;
-            const Vector2 offset = (vec / vecLength) * delta * 0.5f;
-            ball.m_currentPos -= offset;
-            otherBall.m_currentPos += offset;
+        Vector2 pos{ ball.m_currentPos.x - ball.m_radius, ball.m_currentPos.y - ball.m_radius };
+        Vector2 otherPos{ otherBall.m_currentPos.x - otherBall.m_radius, otherBall.m_currentPos.y - otherBall.m_radius };
+
+        if (!( // Bad optimization (checks the circles' bounding boxes first)
+            pos.x + ball.m_radius * 2 < otherPos.x ||
+            pos.x > otherPos.x + otherBall.m_radius * 2 ||
+            pos.y + ball.m_radius * 2 < otherPos.y ||
+            pos.y > otherPos.y + otherBall.m_radius * 2
+            )) {
+            if (vecLength < ball.m_radius + otherBall.m_radius) {
+                const float delta = (ball.m_radius + otherBall.m_radius) - vecLength;
+                const Vector2 offset = (vec / vecLength) * delta * 0.5f;
+                ball.m_currentPos -= offset;
+                otherBall.m_currentPos += offset;
+            }
         }
     }
 }

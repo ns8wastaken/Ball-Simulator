@@ -21,14 +21,14 @@ int main()
         float deltaTime = GetFrameTime();
 
         if (IsWindowFocused()) {
-            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-                engine.addBall();
+            // if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+            //     engine.addBall();
 
             time += GetFrameTime();
 
-            if (time > 0.5) {
+            if (time > 0.1) {
                 time = 0.0f;
-                // engine.addBall();
+                engine.addBall({ 10.0f, 10.0f }, { 0.3f, 0.2f });
             }
 
             engine.update(deltaTime);

@@ -8,7 +8,8 @@ struct Ball
 {
     Vector2 m_currentPos;
     Vector2 m_previousPos;
-    unsigned char m_radius = std::rand() % 50 + 10; // Random value from 10 - 50
+    // unsigned char m_radius = std::rand() % 50 + 8; // Random value from 10 - 50
+    unsigned char m_radius = 8;
 
     void draw();
 
