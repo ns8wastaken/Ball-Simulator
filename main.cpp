@@ -18,18 +18,18 @@ int main()
     float time = 0;
 
     while (!WindowShouldClose()) {
-        float deltaTime = GetFrameTime();
-
         if (IsWindowFocused()) {
-            // if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            //     engine.addBall();
+            float deltaTime = GetFrameTime();
 
-            time += GetFrameTime();
+            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                engine.addBall();
 
-            if (time > 0.1) {
-                time = 0.0f;
-                engine.addBall({ 10.0f, 10.0f }, { 0.3f, 0.2f });
-            }
+            // time += GetFrameTime();
+
+            // if (time > 0.1) {
+            //     time = 0.0f;
+            //     engine.addBall({ 10.0f, 10.0f }, { 0.3f, 0.2f });
+            // }
 
             engine.update(deltaTime);
         }

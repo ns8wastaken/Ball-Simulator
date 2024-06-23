@@ -7,6 +7,13 @@
 
 class Engine
 {
+public:
+    void addBall();
+    void addBall(Vector2 pos, Vector2 velocity);
+
+    void update(float deltaTime);
+    void draw();
+
 private:
     struct
     {
@@ -20,11 +27,4 @@ private:
     void updatePos(Ball& ball, float deltaTime);
     void updateWallCollisions(Ball& ball);
     void updateBallCollisions(Ball& ball);
-
-public:
-    void addBall();
-    void addBall(Vector2 pos, Vector2 velocity);
-
-    void update(float deltaTime);
-    void draw();
 };
